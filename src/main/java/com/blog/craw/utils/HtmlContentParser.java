@@ -1,4 +1,4 @@
-package com.blog.craw;
+package com.blog.craw.utils;
 
 import java.io.IOException;
 
@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
+
+import com.blog.craw.constants.CrawlConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +19,7 @@ public class HtmlContentParser {
 		Document document = null;
 
 		try {
-			document = Jsoup.connect(Constants.URL).get();
+			document = Jsoup.connect(CrawlConstants.URL).get();
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}

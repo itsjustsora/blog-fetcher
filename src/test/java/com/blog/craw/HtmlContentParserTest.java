@@ -6,6 +6,8 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.blog.craw.utils.HtmlContentParser;
+
 class HtmlContentParserTest {
 
 	private static final HtmlContentParser htmlContentParser = new HtmlContentParser();
