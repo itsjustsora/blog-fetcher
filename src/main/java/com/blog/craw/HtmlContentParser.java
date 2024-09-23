@@ -13,13 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class HtmlContentParser {
 
-	public static final String URL = "https://justsora.tistory.com/";
-
 	public Elements parseElements(String selector) {
 		Document document = null;
 
 		try {
-			document = Jsoup.connect(URL).get();
+			document = Jsoup.connect(Constants.URL).get();
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
