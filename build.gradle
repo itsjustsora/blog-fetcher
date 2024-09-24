@@ -29,6 +29,9 @@ dependencies {
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// github
+	implementation 'org.kohsuke:github-api:1.326'
 }
 
 tasks.named('test') {
