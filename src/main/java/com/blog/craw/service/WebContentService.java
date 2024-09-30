@@ -5,6 +5,7 @@ import static com.blog.craw.constants.CrawlConstants.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.jsoup.nodes.Document;
@@ -29,13 +30,13 @@ public class WebContentService {
 	 * 업데이트 여부 확인 및 블로그 포스팅 조회
 	 * @return
 	 */
-	public String generateContents() {
+	public Optional<String> generateContents() {
 		String date = getRecentDate();
 		if (!isUpdated(date)) {
-			return "";
+			return Optional.empty();
 		}
 
-		return buildContent();
+		return Optional.of(buildContent());
 	}
 
 	/**
@@ -87,15 +88,18 @@ public class WebContentService {
 	 */
 	public void updateReadme() {
 		Document document = githubManager.getDocument();
+
 		// 업데이트하고자 하는 div 태그 부분 조회
 		Element element = document.getElementById(UPDATE_DIV);
+		if (element == null) {
+			return;
+		}
 
-		String updateContent = generateContents();
-		if (element != null && updateContent != null) {
-			// 해당 태그 내의 내용 업데이트
-			element.html(updateContent);
+		Optional<String> updateContent = generateContents();
+		updateContent.ifPresent(content -> {
+			element.html(content);
 			String updatedContent = document.body().html();
 			githubManager.updateReadme(updatedContent, COMMIT_MESSAGE);
-		}
+		});
 	}
 }
